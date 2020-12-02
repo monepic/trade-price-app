@@ -1,0 +1,8 @@
+sequenceDiagram
+     JMS Queue new-price-in->>JMS Input SI Transformation:NewPriceRequest(JMS)
+     JMS Input SI Transformation->>TradePriceServiceActivator: NewPriceRequest
+     TradePriceServiceActivator->>TradePriceService: VendorInstrumentPrice
+     TradePriceService->>JMS Topic new-price-out: VendorInstrumentPrice
+     TradePriceServiceActivator->>ErrorChannel: Validation Errors
+     JMS Input SI Transformation->>ErrorChannel: Transformation Errors
+   

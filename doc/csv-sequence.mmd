@@ -1,0 +1,10 @@
+sequenceDiagram
+  CSVFile->>+CSV SI Pipeline:file.csv
+  CSV SI Pipeline->>TradePriceServiceActivator:NewPriceRequest[1]
+  TradePriceServiceActivator->>TradePriceService: VendorInstrumentPrice[1]
+  TradePriceService->>JMS Topic new-price-out: VendorInstrumentPrice[1]
+  CSV SI Pipeline->>TradePriceServiceActivator:NewPriceRequest[n]
+  TradePriceServiceActivator->>TradePriceService: VendorInstrumentPrice[n]
+  TradePriceService->>JMS Topic new-price-out: VendorInstrumentPrice[n]
+  CSV SI Pipeline->>-ErrorChannel: File/CSV parsing errors
+  TradePriceServiceActivator->>ErrorChannel: Validation Errors

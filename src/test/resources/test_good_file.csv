@@ -1,0 +1,6 @@
+vendorId,vendorName,vendorDescription,instrumentSymbol,instrumentDescription,bid,ask
+1,VENDOR_1,Vendor One,VOD,Vodafone,10.50,11.50
+1,VENDOR_1,Vendor One,BAY,British Airways,9.80,9.90
+2,VENDOR_2,Vendor Two,VOD,Vodafone,10.65,11.40
+2,VENDOR_2,Vendor Two,BAY,British Airways,9.50,9.90
+

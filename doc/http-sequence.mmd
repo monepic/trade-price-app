@@ -1,0 +1,19 @@
+sequenceDiagram
+     Client->>+TradePriceApi: POST /prices <NewPriceRequest JSON>
+     TradePriceApi-->>Client: HTTP Status 400 <Binding Errors JSON>
+     TradePriceApi->>TradePriceService: createOrUpdate(VendorInstrumentPrice)
+     TradePriceService->>JMS topic:publish(VendorInstrumentPrice)
+     TradePriceApi-->>-Client:HTTP Status 2xx Accepted
+     Client->>+TradePriceApi: HTTP GET /price
+     TradePriceApi->>TradePriceService:getAll()
+     TradePriceService-->>TradePriceApi:[all prices]
+     TradePriceApi-->>-Client:HTTP Status 200 [all prices JSON]
+     Client->>+TradePriceApi: HTTP GET /vendor/<vendorId>/prices
+     TradePriceApi->>TradePriceService:getByVendor(vendorId)
+     TradePriceService-->>TradePriceApi:[vendor prices]
+     TradePriceApi-->>-Client:HTTP Status 200 [vendor prices JSON]
+     Client->>+TradePriceApi: HTTP GET /instrument/<symbol>/prices
+     TradePriceApi->>TradePriceService:getByInstrument(symbol)
+     TradePriceService-->>TradePriceApi:[instrument prices]
+     TradePriceApi-->>-Client:HTTP Status 200 [instrument prices JSON]
+
